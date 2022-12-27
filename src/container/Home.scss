@@ -1,0 +1,20 @@
+.cardImage{
+    height:20px;
+    width:20px ;
+  }
+
+  .modal-backdrop.show{
+    opacity: 0.1;
+  }
+  .spinnerLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card-body  .cardText{
+    font-size: 1.6rem;
+  }
+  .iconSize{
+   font-size: 10rem;
+   border:1px solid red;
+  }
