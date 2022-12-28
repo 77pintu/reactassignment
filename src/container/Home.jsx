@@ -58,10 +58,16 @@ export default function Home() {
   return (
     <>
       <Outlet />
-      <Container>
+      <Container className="pt-5 mt-2">
         <Row>
           <Col>
-            <Button className="m-4 text-left" variant="danger" onClick={logout}>
+            {usersDetailsStatus.email}
+            <Button
+              className="mx-4"
+              variant="danger"
+              onClick={logout}
+              style={{ float: "right" }}
+            >
               Logout
             </Button>
           </Col>
@@ -118,8 +124,15 @@ export default function Home() {
                           {user.website}
                         </span>
                       </Card.Title>
+                      <Button
+                        className="mt-3 mx-4"
+                        variant="secondary"
+                        onClick={() => navigate(`/profile/${user.id}`)}
+                      >
+                        View Details
+                      </Button>
                     </Card.Body>
-                    <Card.Footer className="py-3">
+                    <Card.Footer className="pb-3">
                       <Row>
                         <Col>
                           <span

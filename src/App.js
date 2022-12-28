@@ -10,6 +10,7 @@ import ProtectedRoute from "./container/ProtectedRoute";
 import Reset from "./container/Reset";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./auth/firebase";
+import UserDetails from "./container/UserDetails";
 function App() {
   const [user, setUser] = React.useState(true);
   const [usersDetailsStatus, loading, error] = useAuthState(auth);
@@ -22,20 +23,36 @@ function App() {
           <Route
             path="/home"
             element={
-              <ProtectedRoute loginStatus={usersDetailsStatus}>
+              <ProtectedRoute
+                loginStatus={usersDetailsStatus}
+                loading={loading}
+              >
                 <Home />
               </ProtectedRoute>
             }
           >
             <Route path="edit/:idUser" element={<Edit />} />
           </Route>
+          <Route
+            path="profile/:idDetails"
+            element={
+              <ProtectedRoute
+                loginStatus={usersDetailsStatus}
+                loading={loading}
+              >
+                <UserDetails />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/create" element={<CreateLogin />} />
           <Route path="/reset" element={<Reset />} />
-
           <Route
             path="*"
             element={
-              <ProtectedRoute loginStatus={usersDetailsStatus}>
+              <ProtectedRoute
+                loginStatus={usersDetailsStatus}
+                loading={loading}
+              >
                 <NotFoundPage />
               </ProtectedRoute>
             }
