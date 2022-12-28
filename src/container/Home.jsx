@@ -12,7 +12,8 @@ import {
   AiOutlineEdit,
   AiFillDelete,
   AiOutlineMail,
-  AiOutlinePhone,AiOutlineGlobal
+  AiOutlinePhone,
+  AiOutlineGlobal,
 } from "react-icons/ai";
 import { logout } from "../auth/firebase";
 import css from "./Home.scss";
@@ -35,13 +36,13 @@ export default function Home() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure want to delete it")) {
       dispatch(deleteAsyncUsers(id));
-      navigate("/");
+      navigate("/home");
     }
   };
   const uniqueLike = user.filter((_) => _.id === singleVal)[0]?.id;
   const handleEditRedirect = (id) => {
     setModalShow(true);
-    navigate(`/edit/${id}`);
+    navigate(`/home/edit/${id}`);
   };
   const onEditSuccess = (isSuccess) => {
     setModalShow(isSuccess);
@@ -53,17 +54,19 @@ export default function Home() {
   useEffect(() => {
     if (loading) return;
     if (!usersDetailsStatus) return navigate("/");
-  }, [usersDetailsStatus, loading]);
+  }, [usersDetailsStatus]);
   return (
     <>
       <Outlet />
-       <Container>
-         <Row>
+      <Container>
+        <Row>
           <Col>
-          <Button className="m-4 text-left" variant="danger" onClick={logout}>Logout</Button>
+            <Button className="m-4 text-left" variant="danger" onClick={logout}>
+              Logout
+            </Button>
           </Col>
-         </Row>
-       </Container>
+        </Row>
+      </Container>
       {user.length > 0 && isLoading ? (
         <div>Loading......</div>
       ) : (
@@ -83,13 +86,34 @@ export default function Home() {
                       }}
                     />
                     <Card.Body className="my-4">
-                      <Card.Title  style={{fontSize: "1.5rem" }} className="mx-3">{user.name}</Card.Title>
-                      <Card.Title muted>
-                        <span  style={{fontSize: "2rem" }} className="mx-3"> <AiOutlineMail/></span>
-                       <span  style={{color:'#92737d' }}> {user.email}</span>
+                      <Card.Title
+                        style={{ fontSize: "1.5rem" }}
+                        className="mx-3"
+                      >
+                        {user.name}
                       </Card.Title>
-                      <Card.Title muted><span   style={{fontSize: "2rem" }} className="mx-3"><AiOutlinePhone/></span>     <span  style={{color:'#92737d' }}> {user.name}</span></Card.Title>
-                      <Card.Title muted><span   style={{fontSize: "2rem"}} className="mx-3"><AiOutlineGlobal/></span>     <span  style={{color:'#92737d'}}> {user.website}</span></Card.Title>
+                      <Card.Title muted>
+                        <span style={{ fontSize: "2rem" }} className="mx-3">
+                          {" "}
+                          <AiOutlineMail />
+                        </span>
+                        <span style={{ color: "#92737d" }}> {user.email}</span>
+                      </Card.Title>
+                      <Card.Title muted>
+                        <span style={{ fontSize: "2rem" }} className="mx-3">
+                          <AiOutlinePhone />
+                        </span>{" "}
+                        <span style={{ color: "#92737d" }}> {user.phone}</span>
+                      </Card.Title>
+                      <Card.Title muted>
+                        <span style={{ fontSize: "2rem" }} className="mx-3">
+                          <AiOutlineGlobal />
+                        </span>{" "}
+                        <span style={{ color: "#92737d" }}>
+                          {" "}
+                          {user.website}
+                        </span>
+                      </Card.Title>
                     </Card.Body>
                     <Card.Footer className="py-3">
                       <Row>
@@ -125,7 +149,7 @@ export default function Home() {
                             show={modalShow}
                             onHide={() => {
                               setModalShow(false);
-                              navigate("/");
+                              navigate(`/home`);
                             }}
                           />
                         </Col>

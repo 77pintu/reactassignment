@@ -1,18 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.scss';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import { store } from './store';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.scss";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./container/ErrorFallback";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+const handleError = (error, info) => {
+  console.log(error, info);
+};
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleError}>
         <App />
+      </ErrorBoundary>
     </Provider>
   </React.StrictMode>
 );
