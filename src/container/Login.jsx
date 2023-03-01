@@ -31,6 +31,7 @@ export default function Login() {
     event.preventDefault();
     setData(data);
     logInWithEmailAndPassword(data.email, data.password);
+    navigate("/home");
   };
   // const hideShowHandle = () => {
   //   setShowPass((showPass) => !showPass);
@@ -89,6 +90,7 @@ export default function Login() {
                 variant="success"
                 type="submit"
                 value="Login"
+                data-testid="user-login"
               />
               <br />
               <Button
@@ -101,6 +103,7 @@ export default function Login() {
               />
               <Button
                 as="input"
+                data-testid="user-forgot-password"
                 variant="warning"
                 onClick={() => navigate("/reset")}
                 className="mx-1 "
@@ -109,8 +112,13 @@ export default function Login() {
               />
               <br />
               <br />
-              <small>Don't have Account?</small>{" "}
-              <Link to="/create">Register</Link> Now
+              <small data-testid="userdon'tacccounttext">
+                Don't have Account?
+              </small>{" "}
+              <Link to="/create" data-testid="user-register">
+                Register
+              </Link>{" "}
+              Now
             </Form>
           </Col>
           <Col sm={12} md={4} lg={4} />

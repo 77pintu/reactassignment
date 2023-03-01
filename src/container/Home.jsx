@@ -22,14 +22,15 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Edit from "./Edit";
 import { Button } from "react-bootstrap";
 
-export default function Home() {
+const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modalShow, setModalShow] = React.useState(false);
   const [like, setLike] = useState(false);
   const [singleVal, setSingleVal] = useState();
-  const { user, isLoading, error } = useSelector((state) => state.users);
+  const { user, isLoading, error } = useSelector((state) => state?.users);
   const [usersDetailsStatus, loading] = useAuthState(auth);
+
   useEffect(() => {
     dispatch(getAsyncUsers());
   }, []);
@@ -61,12 +62,13 @@ export default function Home() {
       <Container className="pt-5 mt-2">
         <Row>
           <Col>
-            {usersDetailsStatus.email}
+            <h1> Welcome</h1>
             <Button
               className="mx-4"
               variant="danger"
               onClick={logout}
               style={{ float: "right" }}
+              test-id="logoutButton"
             >
               Logout
             </Button>
@@ -84,7 +86,14 @@ export default function Home() {
           <Row className="mx-1">
             {user.map((user) => {
               return (
-                <Col sm={12} md={6} lg={3} className="my-4 " key={user.id}>
+                <Col
+                  sm={12}
+                  md={6}
+                  lg={3}
+                  className="my-4 "
+                  key={user.id}
+                  data-testid="custom-element"
+                >
                   <Card>
                     <Card.Img
                       className="pt-3"
@@ -125,6 +134,7 @@ export default function Home() {
                         </span>
                       </Card.Title>
                       <Button
+                        data-testid="viewbutton"
                         className="mt-3 mx-4"
                         variant="secondary"
                         onClick={() => navigate(`/profile/${user.id}`)}
@@ -190,4 +200,6 @@ export default function Home() {
       )}
     </>
   );
-}
+};
+
+export default Home;
