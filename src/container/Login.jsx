@@ -75,34 +75,28 @@ export default function Login() {
                 value="Login"
                 data-testid="user-login"
               />
+              <br />
+              <Button
+                as="input"
+                className="my-4"
+                variant="info"
+                onClick={signInWithGoogle}
+                type="submit"
+                value="Login with GoogleAccount"
+              />
+              <Button
+                as="input"
+                variant="warning"
+                onClick={() => navigate("/reset")}
+                className="mx-1 "
+                type="submit"
+                value="Forgot Password"
+              />
+              <br />
+              <br />
+              <small>Don't have Account?</small>{" "}
+              <Link to="/create">Register</Link> Now
             </Form>
-            <br />
-            <Button
-              as="input"
-              className="my-4"
-              variant="info"
-              onClick={signInWithGoogle}
-              type="submit"
-              value="Login with GoogleAccount"
-            />
-            <Button
-              as="input"
-              data-testid="user-forgot-password"
-              variant="warning"
-              onClick={() => navigate("/reset")}
-              className="mx-2 "
-              type="submit"
-              value="Forgot Password"
-            />
-            <br />
-            <br />
-            <small data-testid="userdon'tacccounttext">
-              Don't have Account?
-            </small>{" "}
-            <Link to="/create" data-testid="user-register">
-              Register
-            </Link>{" "}
-            Now
           </Col>
           <Col sm={12} md={4} lg={4} />
         </Row>

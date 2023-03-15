@@ -12,7 +12,11 @@ const Reset = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState(false);
+<<<<<<< HEAD
   const [usersDetailsStatus, loading] = useAuthState(auth);
+=======
+  const [usersDetailsStatus, loading, error] = useAuthState(auth);
+>>>>>>> d1649fcb7c334e5a811483d54dc7a924d225f664
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!email.length) {
