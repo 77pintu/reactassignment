@@ -8,26 +8,32 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "../auth/firebase";
 
-export default function Reset() {
+const Reset = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [usersDetailsStatus, loading, error] = useAuthState(auth);
+  const [errors, setErrors] = useState(false);
+  const [usersDetailsStatus, loading] = useAuthState(auth);
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (
-      window.confirm(
-        "Please check mail reset link successfully has been sent your mail id"
-      )
-    ) {
-      sendPasswordReset(email);
-      navigate("/");
+    if (!email.length) {
+      setErrors(true);
+      return;
+    } else {
+      if (
+        window.confirm(
+          "Please check mail reset link successfully has been sent your mail id"
+        )
+      ) {
+        sendPasswordReset(email);
+        navigate("/");
+      }
     }
   };
 
   useEffect(() => {
     if (loading) return;
     if (usersDetailsStatus) navigate("/");
-  }, [usersDetailsStatus, loading]);
+  }, [usersDetailsStatus, loading, navigate]);
   return (
     <>
       <Container className="my-5">
@@ -47,7 +53,13 @@ export default function Reset() {
                   placeholder="abc@gmail.com"
                 />
                 <Form.Text className="text-muted">
-                  Please the enter the registered email id
+                  {errors ? (
+                    <p className="mt-3">
+                      Please the enter the registered email id
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </Form.Text>
               </Form.Group>
               <Button
@@ -64,8 +76,12 @@ export default function Reset() {
                 className="mx-1"
                 type="submit"
                 value="Back"
+                data-testid="backbutton"
               />
-              <br /> Don't have an account? <Link to="/create">Register</Link>{" "}
+              <br /> Don't have an account?{" "}
+              <Link to="/create" data-testid="registerbutton">
+                Register
+              </Link>{" "}
               now.
             </Form>
           </Col>
@@ -74,4 +90,5 @@ export default function Reset() {
       </Container>
     </>
   );
-}
+};
+export default Reset;

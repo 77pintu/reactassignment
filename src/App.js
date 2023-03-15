@@ -1,6 +1,6 @@
 import "./App.scss";
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./container/Home";
 import Edit from "./container/Edit";
 import CreateLogin from "./container/CreateLogin";
@@ -12,8 +12,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./auth/firebase";
 import UserDetails from "./container/UserDetails";
 function App() {
-  const [user, setUser] = React.useState(true);
-  const [usersDetailsStatus, loading, error] = useAuthState(auth);
+  const [usersDetailsStatus, loading] = useAuthState(auth);
 
   return (
     <div>

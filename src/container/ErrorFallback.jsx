@@ -1,5 +1,3 @@
-import { ErrorBoundary } from "react-error-boundary";
-
 export function ErrorFallback({ error, componentStack, resetErrorBoundary }) {
   return (
     <div role="alert">

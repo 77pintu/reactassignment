@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import css from "./Home.scss";
+import "./Home.scss";
 export default function ProtectedRoute({ children, loginStatus, loading }) {
   loading && (
     <div>

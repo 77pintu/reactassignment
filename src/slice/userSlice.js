@@ -8,15 +8,15 @@ const initialState = {
 };
 export const getAsyncUsers = createAsyncThunk("getAsyncUsers/get", async () => {
   const response = await getUser();
-  return response.data;
+  return response?.data;
 });
 export const editAsyncUsers = createAsyncThunk("users/edit", async (data) => {
   const response = await editUser(data.id, data);
-  return response.data;
+  return response?.data;
 });
 export const deleteAsyncUsers = createAsyncThunk("users/delete", async (id) => {
   const response = await deleteUser(id);
-  return response.data;
+  return response?.data;
 });
 
 const userSlice = createSlice({
@@ -40,7 +40,7 @@ const userSlice = createSlice({
     },
     [editAsyncUsers.fulfilled]: (state, { payload }) => {
       state.user = state.user.map((userDetails) =>
-        userDetails.id == payload.id ? payload : userDetails
+        userDetails.id === +payload.id ? payload : userDetails
       );
       state.isLoading = false;
     },

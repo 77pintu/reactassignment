@@ -16,14 +16,14 @@ export default function Edit(props) {
   );
   useEffect(() => {
     setEditUser(getData);
-  }, [idUser]);
+  }, [idUser, getData]);
   const handleEdit = (event) => {
     setEditUser({ ...editUser, [event.target.name]: event.target.value });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(editAsyncUsers(editUser)).then(() => navigate("/home"));
-    props.onEditSuccess(false);
+    props.editsuccess(false);
   };
   return (
     <Modal
@@ -81,7 +81,7 @@ export default function Edit(props) {
             />
           </Form.Group>
           <Button variant="primary" type="submit">
-            Edit
+            Update
           </Button>
         </Form>
       </Modal.Body>

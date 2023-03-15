@@ -4,9 +4,6 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import InputGroup from "react-bootstrap/InputGroup";
-
-import { useDispatch, useSelector } from "react-redux";
 import {
   auth,
   logInWithEmailAndPassword,
@@ -14,12 +11,9 @@ import {
 } from "../auth/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 export default function Login() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [usersDetailsStatus, loading, error] = useAuthState(auth);
-  const [showPass, setShowPass] = useState(false);
+  const [usersDetailsStatus, loading] = useAuthState(auth);
   const [data, setData] = useState({ email: "", password: "" });
   const handleInput = (event) => {
     setData({
@@ -31,16 +25,14 @@ export default function Login() {
     event.preventDefault();
     setData(data);
     logInWithEmailAndPassword(data.email, data.password);
+    navigate("/home");
   };
-  // const hideShowHandle = () => {
-  //   setShowPass((showPass) => !showPass);
-  // };
   useEffect(() => {
     if (loading) {
       return;
     }
     if (usersDetailsStatus) navigate("/home");
-  }, [usersDetailsStatus, loading]);
+  }, [usersDetailsStatus, loading, navigate]);
   return (
     <>
       <Container className="my-5">
@@ -74,44 +66,43 @@ export default function Login() {
                   placeholder="***********"
                   autoComplete="off"
                   required
-                >
-                  {/* <InputGroup.Append>
-                    <InputGroup.Text>
-                      <button onClick={hideShowHandle}>
-                        {showPass ? <AiFillEyeInvisible /> : <AiFillEye />}
-                      </button>
-                    </InputGroup.Text>
-                  </InputGroup.Append> */}
-                </Form.Control>
+                />
               </Form.Group>
               <Button
                 as="input"
                 variant="success"
                 type="submit"
                 value="Login"
+                data-testid="user-login"
               />
-              <br />
-              <Button
-                as="input"
-                className="my-4"
-                variant="info"
-                onClick={signInWithGoogle}
-                type="submit"
-                value="Login with GoogleAccount"
-              />
-              <Button
-                as="input"
-                variant="warning"
-                onClick={() => navigate("/reset")}
-                className="mx-1 "
-                type="submit"
-                value="Forgot Password"
-              />
-              <br />
-              <br />
-              <small>Don't have Account?</small>{" "}
-              <Link to="/create">Register</Link> Now
             </Form>
+            <br />
+            <Button
+              as="input"
+              className="my-4"
+              variant="info"
+              onClick={signInWithGoogle}
+              type="submit"
+              value="Login with GoogleAccount"
+            />
+            <Button
+              as="input"
+              data-testid="user-forgot-password"
+              variant="warning"
+              onClick={() => navigate("/reset")}
+              className="mx-2 "
+              type="submit"
+              value="Forgot Password"
+            />
+            <br />
+            <br />
+            <small data-testid="userdon'tacccounttext">
+              Don't have Account?
+            </small>{" "}
+            <Link to="/create" data-testid="user-register">
+              Register
+            </Link>{" "}
+            Now
           </Col>
           <Col sm={12} md={4} lg={4} />
         </Row>

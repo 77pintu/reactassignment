@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { v4 as uuid } from "uuid";
-import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {
   signInWithGoogle,
@@ -13,11 +11,8 @@ import {
 } from "../auth/firebase";
 
 export default function CreateLogin() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [data, setData] = useState({ name: "", email: "", password: "" });
-  const unique_id = uuid();
-  const small_id = unique_id.slice(0, 8);
   const handleInput = (event) => {
     setData({
       ...data,
@@ -61,7 +56,7 @@ export default function CreateLogin() {
                   type="text"
                   name="email"
                   onChange={handleInput}
-                  placeholder="username or email"
+                  placeholder="username"
                   autoComplete="off"
                   required
                 />
